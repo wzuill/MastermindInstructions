@@ -84,13 +84,16 @@ Possible feedback outcomes:
 - Evaluates guesses and returns correct feedback `(black, white)`.
 
 ### Player (Solver)
-- Uses Greenwell’s 6 static guesses:
-  - `(0, 1, 1, 0)`
-  - `(1, 2, 4, 3)`
-  - `(2, 2, 0, 0)`
-  - `(3, 4, 1, 3)`
-  - `(4, 5, 4, 5)`
-  - `(5, 5, 3, 2)`
+- Uses the 6 static Greenwell guesses in this order, placing the simpler 2-color guesses first:
+  1. `(0, 1, 1, 0)`
+  2. `(2, 2, 0, 0)`
+  3. `(4, 5, 4, 5)`
+  4. `(1, 2, 4, 3)`
+  5. `(3, 4, 1, 3)`
+  6. `(5, 5, 3, 2)`
+
+> This ordering is intentional to leverage early simplification through known deduction patterns for 2-color guesses before progressing to more complex structures.
+
 - Collects feedback for each guess.
 - Applies deduction rules and constraints based on feedback.
 - Must always return a solution that is:
