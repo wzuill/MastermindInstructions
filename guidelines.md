@@ -88,6 +88,21 @@ All other feedback values — such as `(1, 2)`, `(2, 1)`, or `(2, 2)` — are **
 
 This rule helps detect feedback errors and reduces the deduction search space.
 
+### 📘 Lookup Table for Deduction from 2-Color Guesses
+
+This table summarizes the structural meaning of each valid feedback outcome when the guess contains exactly two distinct colors and the secret code contains no repeated colors.
+
+| Feedback | Color A in Code? | Color B in Code? | Position Elimination              | Notes / Structural Inference                                                                 |
+|----------|------------------|------------------|-----------------------------------|----------------------------------------------------------------------------------------------|
+| `(0, 0)` | ❌ not present    | ❌ not present    | Eliminate A and B from all positions | Both guessed colors are absent from the secret.                                              |
+| `(1, 0)` | ✅ one is correct in correct position, other is absent |                          | Only guessed positions are candidates for correct color; eliminate both from other positions | One of A or B is correct and in the correct place; the other is not present. Cannot determine which. |
+| `(0, 1)` | ✅ one is correct in wrong position, other is absent |                          | Eliminate A and B from guessed positions; non-guessed positions are candidates | One color is in the code, but not where guessed. Cannot determine which color. |
+| `(1, 1)` | ✅ present        | ✅ present        | All guessed positions are possible (`?`) | One color is correct and in correct position, one correct but misplaced. Cannot assign which. |
+| `(0, 2)` | ✅ present        | ✅ present        | Eliminate guessed positions for both colors | Both colors are correct but in wrong positions. Only non-guessed positions are candidates. |
+| `(2, 0)` | ✅ present        | ✅ present        | Guessed positions are likely correct; eliminate others | Both colors are in correct positions. May promote to resolved with other guesses.             |
+
+> These interpretations should not be applied in isolation — constraints become most effective when combined across multiple guesses.
+
 ## Edge Rules
 - A feedback of `(0, 0)` means none of the guessed colors appear in the secret.
 - If a color appears multiple times in a guess but receives fewer matching pegs than its appearances, it can appear **at most once** in the code — or not at all — under the uniqueness rule.
