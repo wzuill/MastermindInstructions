@@ -26,6 +26,18 @@ These are the reasoning and coding guidelines for building a static Mastermind s
 - Once a position is resolved to a single color, treat it as known and use it to further reduce other positions.
 - Never hard-code solution outcomes; all solutions must emerge through reproducible deduction.
 
+### 🔄 Guess Order vs. Analysis Order
+
+In the static version of Mastermind using Greenwell’s six fixed guesses, **all guesses are made before any feedback is analyzed**. The **order in which the guesses are made does not matter** to the correctness of the final solution.
+
+However, the **order in which feedback is analyzed** can influence the **clarity, speed, and simplicity** of deduction.
+
+- Some feedback results (e.g., `(0, 0)` or `(2, 0)`) may yield strong immediate constraints and are often easiest to analyze first.
+- Deductions may be more effective when **processed in an order that eliminates ambiguity early** or isolates specific colors or positions.
+- This mirrors how a human might work: mentally prioritizing the most definitive clues, even though all guesses are already fixed.
+
+> Therefore, while the **guess set is fixed and unordered**, the **analysis order is strategic** and may be chosen dynamically based on the feedbacks received.
+
 ### Deduction Patterns by Guess Type
 
 #### One Distinct Color (e.g. `(0, 0, 0, 0)`)
