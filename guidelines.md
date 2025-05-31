@@ -73,7 +73,7 @@ Possible feedback outcomes:
 
 ### ❗ Constraint: Feedback Limitations for 2-Color Guesses
 
-When a guess contains only **two distinct colors** (e.g. `(A, B, B, A)`), and the secret code contains **no duplicate colors**, then the **maximum number of total pegs (black + white)** in feedback is **2**.
+When a guess contains only **two distinct colors**, and the secret code contains **no duplicate colors**, then the **maximum number of total pegs (black + white)** in feedback is **2**.
 
 Therefore, the only valid feedback combinations for 2-color guesses are:
 
@@ -88,20 +88,39 @@ All other feedback values — such as `(1, 2)`, `(2, 1)`, or `(2, 2)` — are **
 
 This rule helps detect feedback errors and reduces the deduction search space.
 
-### 📘 Lookup Table for Deduction from 2-Color Guesses
+---
 
-This table summarizes the structural meaning of each valid feedback outcome when the guess contains exactly two distinct colors and the secret code contains no repeated colors.
+### 📘 Feedback Deduction Table for a 2-Color, 2×2 Guess
 
-| Feedback | Color A in Code? | Color B in Code? | Position Elimination              | Notes / Structural Inference                                                                 |
-|----------|------------------|------------------|-----------------------------------|----------------------------------------------------------------------------------------------|
-| `(0, 0)` | ❌ not present    | ❌ not present    | Eliminate A and B from all positions | Both guessed colors are absent from the secret.                                              |
-| `(1, 0)` | ✅ one is correct in correct position, other is absent |                          | Only guessed positions are candidates for correct color; eliminate both from other positions | One of A or B is correct and in the correct place; the other is not present. Cannot determine which. |
-| `(0, 1)` | ✅ one is correct in wrong position, other is absent |                          | Eliminate A and B from guessed positions; non-guessed positions are candidates | One color is in the code, but not where guessed. Cannot determine which color. |
-| `(1, 1)` | ✅ present        | ✅ present        | All guessed positions are possible (`?`) | One color is correct and in correct position, one correct but misplaced. Cannot assign which. |
-| `(0, 2)` | ✅ present        | ✅ present        | Eliminate guessed positions for both colors | Both colors are correct but in wrong positions. Only non-guessed positions are candidates. |
-| `(2, 0)` | ✅ present        | ✅ present        | Guessed positions are likely correct; eliminate others | Both colors are in correct positions. May promote to resolved with other guesses.             |
+This table describes how to interpret feedback for a guess that uses **two colors**, each repeated **twice** (e.g. `(A, B, B, A)`), when the secret has **no repeated colors**. It defines for each feedback:
+- What we know about the presence of each color in the code,
+- How to mark their positions in the deduction matrix using:
 
-> These interpretations should not be applied in isolation — constraints become most effective when combined across multiple guesses.
+| Symbol | Meaning                                                  |
+|--------|----------------------------------------------------------|
+| `?`    | Possible — the color might be in this position           |
+| `X`    | Eliminated — the color cannot be in this position        |
+| `✓`    | Confirmed — the color is in this exact position          |
+| `—`    | Unknown — the color was not guessed in this position     |
+
+| Feedback | Color A in Code? | Color B in Code? | Position Markings for A and B | Structural Interpretation |
+|----------|------------------|------------------|-------------------------------|----------------------------|
+| `(0, 0)` | ❌               | ❌               | All positions for A and B → `X` | Both colors are not in the code. |
+| `(1, 0)` | `?`              | `?`              | Guessed positions → `?`, non-guessed → `X` | One color is correct in the correct position; the other is not in the code. We do not know which color or which position. |
+| `(0, 1)` | `?`              | `?`              | Guessed positions → `X`, non-guessed → `?` | One color is correct but misplaced; the other is not in the code. We do not know which color. |
+| `(1, 1)` | ✅               | ✅               | All guessed positions → `?` | One color is in the correct position, the other in the wrong position. Cannot determine which is which. |
+| `(0, 2)` | ✅               | ✅               | Guessed positions → `X`, non-guessed → `?` | Both colors are in the code, but in the wrong positions. |
+| `(2, 0)` | ✅               | ✅               | Guessed positions → `✓`, non-guessed → `X` | Both colors are in the correct positions. |
+
+> When applying these markings, assume the guess has the structure `(A, B, B, A)`:
+> - A appears in positions 0 and 3
+> - B appears in positions 1 and 2
+    > Therefore:
+> - Guessed positions for A = 0 and 3
+> - Guessed positions for B = 1 and 2
+> - Non-guessed positions are the complementary positions for each color
+
+These interpretations are most effective when integrated across multiple guesses and updated as constraints propagate.
 
 ## Edge Rules
 - A feedback of `(0, 0)` means none of the guessed colors appear in the secret.
