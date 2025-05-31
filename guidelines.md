@@ -71,7 +71,22 @@ Possible feedback outcomes:
 - `(0, 1)`
 - `(0, 0)`
 
-❗ Feedback combinations like `(3, 1)` or `(4, 1)` are **invalid** under the no-repeats rule. Once a color is identified as correct in a position, it cannot appear elsewhere in the code.
+### ❗ Constraint: Feedback Limitations for 2-Color Guesses
+
+When a guess contains only **two distinct colors** (e.g. `(A, B, B, A)`), and the secret code contains **no duplicate colors**, then the **maximum number of total pegs (black + white)** in feedback is **2**.
+
+Therefore, the only valid feedback combinations for 2-color guesses are:
+
+- `(0, 0)`
+- `(0, 1)`
+- `(0, 2)`
+- `(1, 0)`
+- `(1, 1)`
+- `(2, 0)`
+
+All other feedback values — such as `(1, 2)`, `(2, 1)`, or `(2, 2)` — are **impossible** under this constraint and should be treated as invalid.
+
+This rule helps detect feedback errors and reduces the deduction search space.
 
 ## Edge Rules
 - A feedback of `(0, 0)` means none of the guessed colors appear in the secret.
@@ -84,7 +99,7 @@ Possible feedback outcomes:
 - Evaluates guesses and returns correct feedback `(black, white)`.
 
 ### Player (Solver)
-- Uses the 6 static Greenwell guesses in this order, placing the simpler 2-color guesses first:
+- Uses Greenwell’s 6 static guesses in this order, placing the simpler 2-color guesses first:
   1. `(0, 1, 1, 0)`
   2. `(2, 2, 0, 0)`
   3. `(4, 5, 4, 5)`
