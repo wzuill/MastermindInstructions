@@ -81,3 +81,13 @@ Two of the guessed colors are in the secret and are in the correct positions. Th
 | B     | ?        | ?      | ?      | ?      | ?      |
 | C     | ?        | ?      | ?      | ?      | ?      |
 | D     | ?        | ?      | ?      | ?      | ?      |
+
+### Feedback (2, 2)
+Two of the guessed colors are in the secret and in the correct positions. Two others are in the secret but in the wrong positions. All four guessed colors are part of the secret code. We do not know which are black or white, so no positions can be confirmed or eliminated yet.
+
+| Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
+|-------|----------|--------|--------|--------|--------|
+| A     | ✓        | ?      | ?      | ?      | ?      |
+| B     | ✓        | ?      | ?      | ?      | ?      |
+| C     | ✓        | ?      | ?      | ?      | ?      |
+| D     | ✓        | ?      | ?      | ?      | ?      |
