@@ -1,3 +1,4 @@
+
 # Guidelines for ChatGPT
 
 These are the reasoning and coding guidelines for building a static Mastermind solver based on Greenwell’s fixed guesses. These instructions are to be followed by ChatGPT when constructing code, tests, and deduction logic for this problem.
@@ -37,14 +38,16 @@ However, the **order in which feedback is analyzed** can influence the **clarity
 
 > Therefore, while the **guess set is fixed and unordered**, the **analysis order is strategic** and may be chosen dynamically based on the feedbacks received.
 
-### Deduction Patterns by Guess Type
+---
 
-#### One Distinct Color (e.g. `(0, 0, 0, 0)`)
+## 🔢 Valid Feedback by Guess Type
+
+### One Distinct Color (e.g. `(0, 0, 0, 0)`)
 Possible feedback outcomes:
 - `(1, 0)`
 - `(0, 0)`
 
-#### Two Distinct Colors (e.g. `(0, 1, 1, 0)` or `(2, 3, 3, 2)`)
+### Two Distinct Colors (e.g. `(0, 1, 1, 0)` or `(2, 3, 3, 2)`)
 Possible feedback outcomes:
 - `(2, 0)`
 - `(1, 1)`
@@ -53,7 +56,7 @@ Possible feedback outcomes:
 - `(0, 1)`
 - `(0, 0)`
 
-#### Three Distinct Colors (e.g. `(0, 1, 2, 1)` or `(2, 3, 4, 2)`)
+### Three Distinct Colors (e.g. `(0, 1, 2, 1)` or `(2, 3, 4, 2)`)
 Possible feedback outcomes:
 - `(3, 0)`
 - `(2, 1)`
@@ -65,24 +68,35 @@ Possible feedback outcomes:
 - `(0, 1)`
 - `(0, 0)` ❌ Invalid (cannot occur with 3 distinct colors and no duplicates)
 
-#### Four Distinct Colors (e.g. `(0, 1, 2, 3)` or `(3, 4, 5, 0)`)
-Possible feedback outcomes:
-- `(4, 0)`
-- `(3, 0)`
-- `(2, 2)`
-- `(2, 1)`
-- `(2, 0)`
-- `(1, 3)`
-- `(1, 2)`
-- `(1, 1)`
-- `(1, 0)`
-- `(0, 4)`
-- `(0, 3)`
-- `(0, 2)`
-- `(0, 1)`
-- `(0, 0)`
+### Four Distinct Colors (e.g. `(0, 1, 2, 3)` or `(3, 4, 5, 0)`)
 
-### ❗ Constraint: Feedback Limitations for 2-Color Guesses
+Only the following 11 feedback results are possible and should be supported for deduction logic:
+
+(4,0) — All four colors correct and in correct positions  
+(3,0) — Three correct in position, one color not in secret  
+(2,2) — Two correct in position, two correct in wrong position  
+(2,1) — Two correct in position, one correct in wrong position  
+(2,0) — Two correct in position, two not in secret  
+(1,3) — One correct in position, three correct in wrong positions  
+(1,2) — One correct in position, two correct in wrong positions  
+(1,1) — One correct in position, one correct in wrong position  
+(0,4) — All four guessed colors are correct but in wrong positions  
+(0,3) — Three guessed colors are correct but in wrong positions  
+(0,2) — Two guessed colors are correct but in wrong positions
+
+The following feedbacks **cannot** occur under the 4-distinct-color constraint and must be treated as invalid:
+
+(3,1) — Impossible due to color reuse conflict (would require 5 distinct colors in secret)  
+(1,0) — Requires 3 secret colors not in guess (not enough available colors)  
+(0,1) — Requires 3 secret colors not in guess (not enough available colors)  
+(0,0) — Requires 4 secret colors not in guess (impossible with only 6 total colors)
+
+Any feedback outside the valid set above should be treated as logically inconsistent under the no-duplicates rule and must not be allowed during deduction processing.
+
+---
+
+## ❗ Constraint: Feedback Limitations for 2-Color Guesses
+
 When a guess contains only **two distinct colors**, and the secret code contains **no duplicate colors**, then the **maximum number of total pegs (black + white)** in feedback is **2**.
 
 Therefore, the only valid feedback combinations for 2-color guesses are:
