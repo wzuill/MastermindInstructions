@@ -1,4 +1,3 @@
-
 # 🔒 Locked Feedback Deduction Matrices for 4-Color Distinct Guesses
 
 Each matrix below applies to a guess with four distinct colors, e.g., (A, B, C, D), and the specified feedback result.
@@ -62,3 +61,23 @@ All four guessed colors are in the secret. One is in the correct position (black
 | B     | ✓        | ?      | ?      | ?      | ?      |
 | C     | ✓        | ?      | ?      | ?      | ?      |
 | D     | ✓        | ?      | ?      | ?      | ?      |
+
+### Feedback (2, 1)
+Two of the guessed colors are in the secret and in the correct positions. One other color is in the secret but in the wrong position. One color is not in the secret at all. We do not yet know which is which.
+
+| Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
+|-------|----------|--------|--------|--------|--------|
+| A     | ?        | ?      | ?      | ?      | ?      |
+| B     | ?        | ?      | ?      | ?      | ?      |
+| C     | ?        | ?      | ?      | ?      | ?      |
+| D     | ?        | ?      | ?      | ?      | ?      |
+
+### Feedback (2, 0)
+Two of the guessed colors are in the secret and are in the correct positions. The other two guessed colors are not in the secret at all. However, we do not yet know which colors these are, so we cannot eliminate or confirm any positions.
+
+| Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
+|-------|----------|--------|--------|--------|--------|
+| A     | ?        | ?      | ?      | ?      | ?      |
+| B     | ?        | ?      | ?      | ?      | ?      |
+| C     | ?        | ?      | ?      | ?      | ?      |
+| D     | ?        | ?      | ?      | ?      | ?      |
