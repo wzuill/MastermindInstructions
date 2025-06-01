@@ -113,6 +113,33 @@ This rule helps detect feedback errors and reduces the deduction search space.
 
 ---
 
+## 🔒 Locked Feedback Deduction Matrices for 4-Color Distinct Guesses
+
+Each matrix below applies to a guess with four distinct colors, e.g., (A, B, C, D), and the specified feedback result.
+
+### Feedback (0, 2)
+Exactly two of the guessed colors are in the secret, but in the wrong positions. The other two colors are not in the secret.
+
+| Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
+|-------|----------|--------|--------|--------|--------|
+| A     | ?        | X      | ?      | ?      | ?      |
+| B     | ?        | ?      | X      | ?      | ?      |
+| C     | ?        | ?      | ?      | X      | ?      |
+| D     | ?        | ?      | ?      | ?      | X      |
+
+### Feedback (0, 3)
+Three of the guessed colors are in the secret, but all in the wrong positions. One color is not in the secret at all.
+
+| Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
+|-------|----------|--------|--------|--------|--------|
+| A     | ?        | X      | ?      | ?      | ?      |
+| B     | ?        | ?      | X      | ?      | ?      |
+| C     | ?        | ?      | ?      | X      | ?      |
+| D     | ?        | ?      | ?      | ?      | X      |
+
+
+---
+
 ## 🔒 Locked Feedback Deduction Matrix for 3-Color Guess (A, B, C, B)
 
 For each feedback result, the table below shows:
