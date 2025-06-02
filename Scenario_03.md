@@ -11,7 +11,7 @@ This scenario explores a new feedback path for the six fixed static guesses devi
 | G1      | (0, 1, 1, 0)  | (0 black, 2 white)  |
 | G2      | (1, 2, 4, 3)  | (1 black, 2 white)  |
 | G3      | (2, 2, 0, 0)  | (1 black, 1 white)  |
-| G4      | (3, 4, 1, 3)  | TBD                 |
+| G4      | (3, 4, 1, 3)  | (0 black, 2 white)  |
 | G5      | (4, 5, 4, 5)  | (1 black, 0 white)  |
 | G6      | (5, 5, 3, 2)  | TBD                 |
 
@@ -98,7 +98,7 @@ At this point, we know:
 - All four guessed colors are already determined:
   - 1: in the code
   - 2: in the code
-  - 4: possibly in the code
+  - 4: in the code
   - 3: **not in the code** (already excluded)
 
 Feedback: (1 black, 2 white) means:
@@ -120,6 +120,27 @@ We cannot yet determine which color is which peg, but this cross-confirms that:
 |-------|----------|--------|--------|--------|--------|
 | 4     | ✓        | ?      | X      | ?      | X      |
 | 5     | ❌        | X      | X      | X      | X      |
+
+### ✅ Deductions from G4 = (3, 4, 1, 3) → (0 black, 2 white)
+
+- Guessed colors: 3, 4, 1, 3
+- Feedback: (0 black, 2 white)
+
+Analysis:
+- Color 3 is **not in the code** (already excluded), so cannot contribute
+- Colors 4 and 1 are in the code and must contribute the 2 white pegs
+- That means:
+  - Color 4 is not in position 1 (its guess location)
+  - Color 1 is not in position 2 (its guess location)
+
+This provides new positional exclusions.
+
+#### Matrix Update
+
+| Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
+|-------|----------|--------|--------|--------|--------|
+| 4     | ✓        | ?      | X      | ?      | X      |
+| 1     | ✓        | ?      | X      | X      | ?      |
 
 ---
 
