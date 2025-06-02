@@ -1,6 +1,29 @@
+
 # 🔒 Locked Feedback Deduction Matrices for 4-Color Distinct Guesses
 
 Each matrix below applies to a guess with four distinct colors, e.g., (A, B, C, D), and the specified feedback result.
+
+## 🎯 Valid Feedback for 4-Color Distinct Guesses
+
+Only the following 11 feedback combinations are valid under the "no-duplicate colors" rule. These are based on the constraint that the secret code uses 4 **distinct** colors, drawn from 6 available colors:
+
+| Black Pegs | White Pegs | Meaning |
+|------------|-------------|---------|
+| (4, 0)     | All four guessed colors are correct and in the correct positions |
+| (3, 0)     | Three correct in position, one not in secret |
+| (2, 2)     | Two correct in position, two correct in wrong positions |
+| (2, 1)     | Two correct in position, one correct in wrong position |
+| (2, 0)     | Two correct in position, two not in secret |
+| (1, 3)     | One correct in position, three correct in wrong positions |
+| (1, 2)     | One correct in position, two correct in wrong positions |
+| (1, 1)     | One correct in position, one correct in wrong position |
+| (0, 4)     | All four guessed colors are correct but in the wrong positions |
+| (0, 3)     | Three guessed colors are correct but in the wrong positions |
+| (0, 2)     | Two guessed colors are correct but in the wrong positions |
+
+Any feedback not in this list (such as (3,1), (0,1), or (0,0)) is logically inconsistent with the four-color no-duplicate constraint and must be treated as invalid.
+
+---
 
 ### Feedback (0, 2)
 Exactly two of the guessed colors are in the secret, but in the wrong positions. The other two colors are not in the secret.
