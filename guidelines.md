@@ -2,6 +2,34 @@
 
 These are the reasoning and coding guidelines for building a static Mastermind solver based on Greenwell’s fixed guesses. These instructions are to be followed by ChatGPT when constructing code, tests, and deduction logic for this problem.
 
+---
+
+## 🎯 Static Solution and Greenwell’s Fixed Guesses
+
+In the standard Mastermind game (4 pegs, 6 colors, no duplicates in the secret), a *static solution* refers to a pre-selected set of guesses made **without regard to feedback** from earlier guesses. Instead of adapting based on partial results, all six guesses are made up front, and the feedback from all is then analyzed to deduce the secret.
+
+This approach is especially useful for automated solvers and logical deduction models. It enforces clarity of reasoning and avoids guess-dependent branching.
+
+### 🧠 Key Properties
+- The secret code contains **four distinct colors** chosen from {0, 1, 2, 3, 4, 5}.
+- The sequence of guesses is fixed in advance and does **not depend on feedback**.
+- All reasoning is based on analyzing the feedbacks received for these fixed guesses.
+
+### 🧩 Greenwell’s Six Static Guesses
+
+The following six guesses, discovered by Greenwell, are sufficient to uniquely determine any valid secret code under the static model:
+
+| Guess # | Guess        |
+|---------|--------------|
+| G1      | (0, 1, 1, 0) |
+| G2      | (1, 2, 4, 3) |
+| G3      | (2, 2, 0, 0) |
+| G4      | (3, 4, 1, 3) |
+| G5      | (4, 5, 4, 5) |
+| G6      | (5, 5, 3, 2) |
+
+These guesses are crafted to maximize coverage of positional and color combinations. With complete feedback for these six, the secret code can always be deduced logically.
+
 ## General Principles
 - Write code in small, verifiable steps, confirming correctness through focused microtests.
 - Make no assumptions about feedback behavior — all reasoning must be explicitly justified.
@@ -110,4 +138,5 @@ All other feedback values — such as `(1, 2)`, `(2, 1)`, or `(2, 2)` — are **
 
 This rule helps detect feedback errors and reduces the deduction search space.
 
+---
 ---
