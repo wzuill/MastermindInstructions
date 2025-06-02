@@ -54,3 +54,40 @@ Thus:
 - Color 0 and color 2 are fully eliminated.
 - Color 1 is known to be in the code at exactly one position, either 1 or 2 — we cannot yet determine which.
 - Positions 0 and 3 for color 1 are ruled out due to their absence in G1 and lack of contribution to feedback.
+
+---
+
+## Additional Deduction: Remaining Colors in Code
+
+### Constraint: The secret code uses exactly **4 distinct colors** from a total of 6.
+
+From earlier deductions:
+- Color 0: ❌ eliminated
+- Color 2: ❌ eliminated
+- Color 1: ✅ confirmed in the code
+
+This leaves only three other candidates: **3, 4, and 5**
+
+Since two colors (0 and 2) are eliminated and the code requires four distinct colors, the remaining colors **must be**:
+
+- ✅ Color 1
+- ✅ Color 3
+- ✅ Color 4
+- ✅ Color 5
+
+No other configuration can satisfy the constraint.
+
+---
+
+## ✅ Updated Color Inclusion Table
+
+| Color | In Code? |
+|-------|----------|
+| 0     | X        |
+| 1     | ✓        |
+| 2     | X        |
+| 3     | ✓        |
+| 4     | ✓        |
+| 5     | ✓        |
+
+This completes a full identification of the secret code's color set using only two guesses.
