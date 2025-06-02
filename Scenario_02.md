@@ -6,14 +6,14 @@ This scenario analyzes a different set of feedback responses for the standard si
 
 ## 📋 Scenario Overview: Guesses and Feedback
 
-| Guess # | Guess         | Feedback        |
-|---------|---------------|-----------------|
-| G1      | (0, 1, 1, 0)  | (0 black, 2 white) |
-| G2      | TBD           | TBD             |
-| G3      | (2, 2, 0, 0)  | (2 black, 0 white) |
-| G4      | TBD           | TBD             |
-| G5      | (4, 5, 4, 5)  | (0 black, 0 white) |
-| G6      | TBD           | TBD             |
+| Guess # | Guess         | Feedback            |
+|---------|---------------|---------------------|
+| G1      | (0, 1, 1, 0)  | (0 black, 2 white)  |
+| G2      | (1, 2, 4, 3)  | (3 black, 0 white)  |
+| G3      | (2, 2, 0, 0)  | (2 black, 0 white)  |
+| G4      | (3, 4, 1, 3)  | TBD                 |
+| G5      | (4, 5, 4, 5)  | (0 black, 0 white)  |
+| G6      | (5, 5, 3, 2)  | TBD                 |
 ---
 
 ## ✅ Deductions from G1 = (0, 1, 1, 0) → (0, 2)
@@ -122,5 +122,65 @@ This locks in the complete set of secret code colors: **0, 1, 2, 3**
 | 1     | ✓        | ?      | X      | X      | ?      |
 | 2     | ✓        | ?      | ?      | X      | X      |
 | 3     | ✓        | ?      | ?      | ?      | ?      |
+| 4     | ❌        | X      | X      | X      | X      |
+| 5     | ❌        | X      | X      | X      | X      |
+---
+
+## ✅ Deductions from G2 = (1, 2, 4, 3) → (3 black, 0 white)
+
+### Feedback Interpretation
+- **3 black**: Three guessed colors are in the secret code and in the correct positions.
+- **0 white**: No other guessed colors are in the secret.
+
+### Guess Details
+| Position | Color |
+|----------|--------|
+| 0        | 1      |
+| 1        | 2      |
+| 2        | 4      |
+| 3        | 3      |
+
+### Deduction Logic
+- Among the four guessed colors, **three are in the code at the exact positions given**.
+- One of them is **not in the code at all**.
+- From G5 = (4, 5, 4, 5) → (0 black, 0 white), we already eliminated **color 4**.
+- Therefore, in this guess, **color 4 is the excluded one**.
+
+That means:
+- ✅ Color **1** is correct at **position 0**
+- ✅ Color **2** is correct at **position 1**
+- ✅ Color **3** is correct at **position 3**
+- ❌ Color **4** is not in the secret
+
+---
+
+### 🔁 Reaffirming Color 0 at Position 2
+
+From G1 = (0, 1, 1, 0) → (0 black, 2 white):
+- Color 0 is in the secret but not at pos 0 or 3
+
+From G3 = (2, 2, 0, 0) → (2 black, 0 white):
+- Color 0 appears at pos 2 and 3
+- Pos 3 was eliminated for 0 by G1
+- Therefore, **color 0 must be at position 2**
+
+---
+
+## 🎯 Final Confirmed Code (Positions Locked)
+
+| Pos 0 | Pos 1 | Pos 2 | Pos 3 |
+|--------|--------|--------|--------|
+| 1      | 2      | 0      | 3      |
+
+---
+
+## 🧾 Updated Deduction Matrix (after G2)
+
+| Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
+|-------|----------|--------|--------|--------|--------|
+| 0     | ✓        | X      | X      | ✓      | X      |
+| 1     | ✓        | ✓      | X      | X      | X      |
+| 2     | ✓        | X      | ✓      | X      | X      |
+| 3     | ✓        | X      | X      | X      | ✓      |
 | 4     | ❌        | X      | X      | X      | X      |
 | 5     | ❌        | X      | X      | X      | X      |
