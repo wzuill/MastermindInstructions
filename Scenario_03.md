@@ -9,7 +9,7 @@ This scenario explores a new feedback path for the six fixed static guesses devi
 | Guess # | Guess         | Feedback            |
 |---------|---------------|---------------------|
 | G1      | (0, 1, 1, 0)  | (0 black, 2 white)  |
-| G2      | (1, 2, 4, 3)  | TBD                 |
+| G2      | (1, 2, 4, 3)  | (1 black, 2 white)  |
 | G3      | (2, 2, 0, 0)  | (1 black, 1 white)  |
 | G4      | (3, 4, 1, 3)  | TBD                 |
 | G5      | (4, 5, 4, 5)  | (1 black, 0 white)  |
@@ -49,10 +49,6 @@ This scenario explores a new feedback path for the six fixed static guesses devi
 | 0     | ✓        | X      | ?      | ?      | X      |
 | 1     | ✓        | ?      | X      | X      | ?      |
 
-- Color 0 is not at pos 0 or 3 → `X`
-- Color 1 is not at pos 1 or 2 → `X`
-- Both are in the secret somewhere else → `✓` for inclusion
-
 ### ✅ Deductions from G3 = (2, 2, 0, 0) → (1 black, 1 white)
 
 - Guess includes only colors 2 and 0
@@ -71,25 +67,13 @@ Now:
 - Feedback confirms color 0 contributes either the black or white peg
 - The other peg must come from color 2
 
-But we do not know whether color 2 is in the secret or not — it might be the black or white peg contributor, or one of the excluded ones
+Thus, color **2 must also be in the code** — the only way to account for both pegs
 
-### Conservative Matrix Update
-
-From this feedback and prior deductions:
-- G1 confirms color 0 is in the code
-- G3 gives (1 black, 1 white) for guess (2, 2, 0, 0)
-- Since 0 is already known to be in the code, one of the pegs in G3 must come from color 2
-- Therefore, color **2 must also be in the code** — the only way to generate the second peg
-
-Thus, colors 0, 1, and 2 are all confirmed to be in the secret
+#### Matrix Update
 
 | Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
 |-------|----------|--------|--------|--------|--------|
-| 0     | ✓        | X      | ?      | ?      | X      |
-| 1     | ✓        | ?      | X      | X      | ?      |
 | 2     | ✓        | ?      | ?      | ?      | ?      |
-
-We defer a definitive position or exclusion for color 2 until further guesses.
 
 ### ✅ Deductions from G5 = (4, 5, 4, 5) → (1 black, 0 white)
 
@@ -99,30 +83,43 @@ We defer a definitive position or exclusion for color 2 until further guesses.
 Implications:
 - Exactly one of these colors is in the secret code and is in the correct position
 - The other color is not in the secret at all
-- One of the two instances of the included color is in the correct position; the other is not
 
-We do not yet know which color is excluded and which is included, nor which position is correct
-
-### Conservative Matrix Update
+We do not yet know which color is excluded and which is included
 
 At this point, we know:
 - Colors 0, 1, and 2 are in the code
 - G5 tells us that exactly one of 4 or 5 is in the code
 - That accounts for all 4 secret colors
 
-➡️ Therefore, **color 3 is not in the secret** — it is excluded.
+➡️ Therefore, **color 3 is not in the secret** — it is excluded
 
-We mark:
-- Color 4: one of two copies could be black, or color 4 might be the excluded one
-- Color 5: same ambiguity
-- We cannot rule out or confirm either inclusion or position yet
+### ✅ Deductions from G2 = (1, 2, 4, 3) → (1 black, 2 white)
+
+- All four guessed colors are already determined:
+  - 1: in the code
+  - 2: in the code
+  - 4: possibly in the code
+  - 3: **not in the code** (already excluded)
+
+Feedback: (1 black, 2 white) means:
+- Three of the guessed colors are in the secret
+- One is not — that is color 3
+
+So:
+- Colors 1, 2, and 4 contribute the pegs (1 black, 2 white)
+- One of them is in the correct position
+- Two are correct colors in wrong positions
+
+We cannot yet determine which color is which peg, but this cross-confirms that:
+- 4 is the color included from {4, 5}
+- 5 is not in the code
+
+#### Matrix Update
 
 | Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
 |-------|----------|--------|--------|--------|--------|
-| 4     | ?        | ?      | ?      | ?      | ?      |
-| 5     | ?        | ?      | ?      | ?      | ?      |
-
-We will refine this once more feedbacks or eliminations appear.
+| 4     | ✓        | ?      | X      | ?      | X      |
+| 5     | ❌        | X      | X      | X      | X      |
 
 ---
 
@@ -134,5 +131,5 @@ We will refine this once more feedbacks or eliminations appear.
 | 1     | ✓        | ?      | X      | X      | ?      |
 | 2     | ✓        | ?      | ?      | ?      | ?      |
 | 3     | ❌        | X      | X      | X      | X      |
-| 4     | ?        | ?      | ?      | ?      | ?      |
-| 5     | ?        | ?      | ?      | ?      | ?      |
+| 4     | ✓        | ?      | X      | ?      | X      |
+| 5     | ❌        | X      | X      | X      | X      |
