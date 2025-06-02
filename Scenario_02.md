@@ -1,4 +1,3 @@
-
 # Scenario_02: Alternate Feedback Path for Static Guesses
 
 This scenario analyzes a different set of feedback responses for the standard six fixed static guesses in Mastermind, based on Greenwell’s sequence. The goal is to apply the locked deduction rules to determine the secret code using only logical inference.
@@ -11,7 +10,7 @@ This scenario analyzes a different set of feedback responses for the standard si
 |---------|---------------|-----------|
 | G1      | (0, 1, 1, 0)  | (0 black, 2 white) |
 | G2      | TBD           | TBD       |
-| G3      | TBD           | TBD       |
+| G3      | (2, 2, 0, 0)  | (2 black, 0 white) |
 | G4      | TBD           | TBD       |
 | G5      | TBD           | TBD       |
 | G6      | TBD           | TBD       |
@@ -31,9 +30,8 @@ We will proceed through the feedbacks one at a time, adding analysis and deducti
 - Distribution: Color 0 at pos 0 and 3; Color 1 at pos 1 and 2
 
 ### Deduction Logic
-- Only **two pegs match**, and all are white.
-- Therefore, one instance of **color 0** and one instance of **color 1** are in the secret.
-- These correct instances are **not** at the guessed positions.
+- One instance of color 0 and one of color 1 are in the secret.
+- Their positions in the guess are not correct.
 
 ### Deduction Matrix
 | Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
@@ -41,8 +39,51 @@ We will proceed through the feedbacks one at a time, adding analysis and deducti
 | 0     | ✓        | X      | ?      | ?      | X      |
 | 1     | ✓        | ?      | X      | X      | ?      |
 
-This deduction aligns with the locked matrix for a 2-color guess with (0,2) feedback.
+---
+
+## ✅ Deductions from G3 = (2, 2, 0, 0) → (2, 0)
+
+### Feedback Interpretation
+- **2 black**: Two guessed colors are in the secret and in the correct position.
+- **0 white**: No other guessed colors are in the secret.
+- Colors guessed: 2 and 0, each repeated twice.
+
+### Deduction Logic
+- Colors 2 and 0 are both in the secret once each.
+- One instance of each is in the correct position (black); the duplicate is not.
+- Therefore:
+    - For color 0: one of pos 2 or 3 is correct, the other is not.
+    - For color 2: one of pos 0 or 1 is correct, the other is not.
+
+### Cross-Guess Resolution for Color 0
+- From G1, we already eliminated pos 0 and 3 for color 0.
+- That leaves only pos 2 for color 0 → must be correct.
+
+### Updated Deduction Matrices
+
+#### Color 0 — Now fully resolved:
+| Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
+|-------|----------|--------|--------|--------|--------|
+| 0     | ✓        | X      | X      | ✓      | X      |
+
+#### Color 1 — from G1 (in code, wrong at 1 and 2):
+| Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
+|-------|----------|--------|--------|--------|--------|
+| 1     | ✓        | ?      | X      | X      | ?      |
+
+#### Color 2 — from G3 (in code, one ✓ at pos 0 or 1):
+| Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
+|-------|----------|--------|--------|--------|--------|
+| 2     | ✓        | ?      | ?      | X      | X      |
 
 ---
 
-(Additional guesses and reasoning to follow as feedback is provided.)
+## 🔁 Summary of Known Constraints (after G1 and G3)
+
+| Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
+|-------|----------|--------|--------|--------|--------|
+| 0     | ✓        | X      | X      | ✓      | X      |
+| 1     | ✓        | ?      | X      | X      | ?      |
+| 2     | ✓        | ?      | ?      | X      | X      |
+
+We have confirmed three of the secret code's colors and significantly narrowed their possible positions.
