@@ -1,6 +1,23 @@
-# Cross-Guess Deduction Summary: Full Reasoning Leading to Forced Solution
+# Scenario_01: Full Cross-Guess Deduction Leading to Forced Solution
 
-This analysis uses the feedback from G1, G3, G5, and G2 to deduce the exact secret code under the constraints of static Mastermind with no duplicate colors.
+This scenario walks through a specific set of six static guesses with associated feedback,
+and demonstrates how the correct secret code is logically forced from the given information.
+
+---
+
+## 📋 Scenario Overview: Guesses and Feedback
+
+| Guess # | Guess         | Feedback  |
+|---------|---------------|-----------|
+| G1      | (0, 1, 1, 0)  | (1 black, 0 white) |
+| G2      | (1, 2, 4, 3)  | (2 black, 1 white) |
+| G3      | (2, 2, 0, 0)  | (0 black, 0 white) |
+| G4      | (3, 4, 1, 3)  | *not analyzed* |
+| G5      | (4, 5, 4, 5)  | (1 black, 1 white) |
+| G6      | (5, 5, 3, 2)  | *not analyzed* |
+
+Guesses used: G1, G2, G3, G5  
+G4 and G6 were not needed for this deduction path.
 
 ---
 
@@ -49,9 +66,9 @@ This analysis uses the feedback from G1, G3, G5, and G2 to deduce the exact secr
 
 By position:
 
-- Pos 0 = 1  
-- Pos 1 = 2 (miss)  
-- Pos 2 = 4  
+- Pos 0 = 1
+- Pos 1 = 2 (miss)
+- Pos 2 = 4
 - Pos 3 = 3
 
 To satisfy (2 black, 1 white):
@@ -110,5 +127,3 @@ This configuration:
 | 3     | ✓        | X      | X      | X      | ✓      |
 | 4     | ✓        | X      | X      | ✓      | X      |
 | 5     | ✓        | ✓      | X      | X      | X      |
-
-All placements are logically forced from the existing locked deductions and feedbacks.
