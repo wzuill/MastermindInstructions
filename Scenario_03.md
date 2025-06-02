@@ -12,7 +12,7 @@ This scenario explores a new feedback path for the six fixed static guesses devi
 | G2      | (1, 2, 4, 3)  | TBD                 |
 | G3      | (2, 2, 0, 0)  | (1 black, 1 white)  |
 | G4      | (3, 4, 1, 3)  | TBD                 |
-| G5      | (4, 5, 4, 5)  | TBD                 |
+| G5      | (4, 5, 4, 5)  | (1 black, 0 white)  |
 | G6      | (5, 5, 3, 2)  | TBD                 |
 
 ---
@@ -75,15 +75,54 @@ But we do not know whether color 2 is in the secret or not — it might be the b
 
 ### Conservative Matrix Update
 
-We leave positional status unchanged but mark inclusion:
+From this feedback and prior deductions:
+- G1 confirms color 0 is in the code
+- G3 gives (1 black, 1 white) for guess (2, 2, 0, 0)
+- Since 0 is already known to be in the code, one of the pegs in G3 must come from color 2
+- Therefore, color **2 must also be in the code** — the only way to generate the second peg
+
+Thus, colors 0, 1, and 2 are all confirmed to be in the secret
 
 | Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
 |-------|----------|--------|--------|--------|--------|
 | 0     | ✓        | X      | ?      | ?      | X      |
 | 1     | ✓        | ?      | X      | X      | ?      |
-| 2     | ?        | ?      | ?      | ?      | ?      |
+| 2     | ✓        | ?      | ?      | ?      | ?      |
 
 We defer a definitive position or exclusion for color 2 until further guesses.
+
+### ✅ Deductions from G5 = (4, 5, 4, 5) → (1 black, 0 white)
+
+- Colors guessed: 4 and 5 (each appears twice)
+- Feedback: 1 black, 0 white
+
+Implications:
+- Exactly one of these colors is in the secret code and is in the correct position
+- The other color is not in the secret at all
+- One of the two instances of the included color is in the correct position; the other is not
+
+We do not yet know which color is excluded and which is included, nor which position is correct
+
+### Conservative Matrix Update
+
+At this point, we know:
+- Colors 0, 1, and 2 are in the code
+- G5 tells us that exactly one of 4 or 5 is in the code
+- That accounts for all 4 secret colors
+
+➡️ Therefore, **color 3 is not in the secret** — it is excluded.
+
+We mark:
+- Color 4: one of two copies could be black, or color 4 might be the excluded one
+- Color 5: same ambiguity
+- We cannot rule out or confirm either inclusion or position yet
+
+| Color | In Code? | Pos 0 | Pos 1 | Pos 2 | Pos 3 |
+|-------|----------|--------|--------|--------|--------|
+| 4     | ?        | ?      | ?      | ?      | ?      |
+| 5     | ?        | ?      | ?      | ?      | ?      |
+
+We will refine this once more feedbacks or eliminations appear.
 
 ---
 
@@ -93,7 +132,7 @@ We defer a definitive position or exclusion for color 2 until further guesses.
 |-------|----------|--------|--------|--------|--------|
 | 0     | ✓        | X      | ?      | ?      | X      |
 | 1     | ✓        | ?      | X      | X      | ?      |
-| 2     | ?        | ?      | ?      | ?      | ?      |
-| 3     | TBD      | TBD    | TBD    | TBD    | TBD    |
-| 4     | TBD      | TBD    | TBD    | TBD    | TBD    |
-| 5     | TBD      | TBD    | TBD    | TBD    | TBD    |
+| 2     | ✓        | ?      | ?      | ?      | ?      |
+| 3     | ❌        | X      | X      | X      | X      |
+| 4     | ?        | ?      | ?      | ?      | ?      |
+| 5     | ?        | ?      | ?      | ?      | ?      |
