@@ -29,10 +29,10 @@ This application is a static Mastermind solver built in Java. It uses Greenwell'
 * Feedback is collected for each guess as a pair: (black pegs, white pegs).
 * Deduction proceeds by interpreting all six feedbacks in combination using:
 
-    * Valid feedback sets for 2-, 3-, and 4-color guesses (see `guidelines.md`).
-    * Locked reasoning matrices (see `Locked_3_color_matrices.md`, `Locked_4_color_matrices.md`).
-    * Scenario-based deduction examples (see `Scenario_01.md`, `Scenario_02.md`, `Scenario_03.md`).
-* Brute force is explicitly disallowed. No enumeration or filtering of 1296 codes is permitted.
+  * Valid feedback sets for 2-, 3-, and 4-color guesses (see `guidelines.md`).
+  * Locked reasoning matrices (see `Locked_3_color_matrices.md`, `Locked_4_color_matrices.md`).
+  * Scenario-based deduction examples (see `Scenario_01.md`, `Scenario_02.md`, `Scenario_03.md`).
+* Brute force is explicitly disallowed. No enumeration or filtering of valid secret codes (360 total, all 4-color, no duplicates) is permitted.
 
 ## 5. 🧱 Core Classes (Sketch)
 
