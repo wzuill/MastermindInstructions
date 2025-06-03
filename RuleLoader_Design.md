@@ -106,3 +106,4 @@ These rule handlers can be small classes or lambdas injected via the loader.
 ---
 
 This component is the engine that turns pattern-based deduction into working code logic, consistent with the static solver's no-brute-force constraint.
+  
